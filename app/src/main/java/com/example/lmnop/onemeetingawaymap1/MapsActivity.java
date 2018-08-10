@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +42,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 {
 
+    //declare constants
     private static final String TAG = "MapsActivity";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -54,6 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public String Meeting = "2807 w viewmont way w, settle wa 98199";
     public String Name = "My old house";
     public GoogleMap mMap;
+    private ClusterManager<MyItem> mClusterManager;
 
 
     public FusedLocationProviderClient fusedLocationProviderClient;
@@ -98,8 +101,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
         }
 
-        new LongRunningTask().execute();
 
+
+
+//        new LongRunningTask().execute();
+
+        setUpClusterer();
 
 
     }
@@ -243,7 +250,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //method to move the camera
     private void moveCamera(LatLng latLng, float zoom) {
-        Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
@@ -290,29 +296,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    private void setUpClusterer() {
+
+        // Initialize the manager with the context and the map.
+        // (Activity extends context, so we can pass 'this' in the constructor.)
+        mClusterManager = new ClusterManager<MyItem>(this, mMap);
+
+        // Point the map's listeners at the listeners implemented by the cluster
+        // manager.
+        mMap.setOnCameraIdleListener(mClusterManager);
+        mMap.setOnMarkerClickListener(mClusterManager);
+
+        // Add cluster items (markers) to the cluster manager.
+        addItems();
+    }
+
+    private void addItems() {
+
+        List<DataItemMeetings> meet = mDataSource.getPins();
+        for (int i = 0; i < meet.size(); i++) {
+            String slat = meet.get(i).getLat();
+            String slng = meet.get(i).getLng();
+            double lat = Double.parseDouble(slat);
+            double lng = Double.parseDouble(slng);
+            MyItem setItem = new MyItem(lng, lat, meet.get(i).getMeetingName(), meet.get(i).getDay());
+            mClusterManager.addItem(setItem);
+
+        }
+        mClusterManager.cluster();
+//        mClusterManager.setRenderer(new OwnIconRendered(this.getApplicationContext(), mMap, mClusterManager));
+    }
 
 
 
-
-
-//    @Override
-//    public void onCameraMove() {
-//
-//        if (dataItemMeetingsList.size() > 0){
-//            //iterate through meetings arraylist
-//            for (int i = 0; i < dataItemMeetingsList.size(); i++){
-//
-//                //set meeting
-//                DataItemMeetings dataItemMeetings = dataItemMeetingsList.get(i);
-//
-//                //set marker
-//                LatLng marker = new LatLng(Double.parseDouble(dataItemMeetings.getLat()), Double.parseDouble(dataItemMeetings.getLng()));
-//
-//                findMarkers(marker, dataItemMeetings);
-//
-//            }
-//        }
-//  }
 
 
 }
