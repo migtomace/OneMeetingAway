@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Added nav_items file for bottom nav bar-->
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_map"
+        android:icon="@drawable/ic_round_map_24px"
+        android:title="@string/map" />
+    <item
+        android:id="@+id/nav_list"
+        android:icon="@drawable/ic_sharp_event_note_24px"
+        android:title="@string/list" />
+</menu>

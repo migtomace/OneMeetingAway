@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">OneMeetingAwayMap1</string>
     <string name="title_activity_maps">Map</string>
+    <string name="nav_home">Home</string>
+    <string name="notification">Notification</string>
+    <string name="maps">Maps</string>
+    <string name="calendar">Calendar</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="alerts">Alerts</string>
+    <string name="event">Event</string>
+    <string name="meetings">Meetings</string>
+    <string name="list">List</string>
+    <string name="map">Map</string>
 </resources>

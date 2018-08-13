@@ -9,12 +9,15 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -60,6 +63,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     public FusedLocationProviderClient fusedLocationProviderClient;
+
+    //added for navbar
+    private BottomNavigationView mMainNav;
+    private FrameLayout mMainFrame;
 
 
     @Override
@@ -108,31 +115,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         setUpClusterer();
 
+        //added for navbar
+        mMainFrame = (FrameLayout) findViewById(R.id.main_frame);
+        mMainNav = (BottomNavigationView) findViewById(R.id.main_nav);
+
+        mMainNav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+
+            }
+
+
+        });
 
     }
 
-//    @Override
-//    public void onPointerCaptureChanged(boolean hasCapture) {
-//        if (hasCapture){
-//
-//            if (dataItemMeetingsList.size() > 0){
-//                //iterate through meetings arraylist
-//                for (int i = 0; i < dataItemMeetingsList.size(); i++){
-//
-//                    //set meeting
-//                    DataItemMeetings dataItemMeetings = dataItemMeetingsList.get(i);
-//
-//                    //set marker
-//                    LatLng marker = new LatLng(Double.parseDouble(dataItemMeetings.getLat()), Double.parseDouble(dataItemMeetings.getLng()));
-//
-//                    findMarkers(marker, dataItemMeetings);
-//
-//                }
-//            }
-//
-//        }
-//
-//    }
 
 
 
@@ -203,19 +200,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-//    //check if LatLng is withing view
-//    private void findMarkers(LatLng marker, DataItemMeetings dataItemMeetings) {
-//        Location location = new Location("target");
-//        LatLng camPos = mMap.getCameraPosition().target;
-//        location.setLatitude(camPos.latitude);
-//        location.setLongitude(camPos.longitude);
-//        Location target = new Location("target");
-//        target.setLatitude(marker.latitude);
-//        target.setLongitude(marker.longitude);
-//        if (location.distanceTo(target) < 2000) {
-//            mMap.addMarker(new MarkerOptions().position(marker).title(dataItemMeetings.getMeetingName()));
-//        }
-//    }
 
 
     private void getDeviceLocation() {
