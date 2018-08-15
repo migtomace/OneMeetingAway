@@ -1,6 +1,7 @@
 package com.example.lmnop.onemeetingawaymap1;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,10 +20,12 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.lmnop.onemeetingawaymap1.Adapters.ListMeetingsAdapter;
 import com.example.lmnop.onemeetingawaymap1.DataBase.DataSource;
 import com.example.lmnop.onemeetingawaymap1.DataBase.MeetingsTable;
 import com.example.lmnop.onemeetingawaymap1.model.DataItemMeetings;
@@ -86,6 +89,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mDataSource.seedDataBase(dataItemMeetingsList);
 
         getLocationPermission();
+
+        mMainFrame = (FrameLayout) findViewById(R.id.main_frame);
+        mMainNav = (BottomNavigationView) findViewById(R.id.main_nav);
+//        View.OnClickListener onClickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent;
+//                switch (v.getId()){
+//                    case R.id.nav_list:
+//                        intent = new Intent(MapsActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        Toast.makeText(getApplicationContext(), "OnClick: ShowListView", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.main_frame:
+//                        intent = new Intent(ListMeetingsAdapter.this, MapsActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                }
+//            }
+//        };
+        mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+
+                Toast.makeText(getApplicationContext(), "ItemID: " + item.getItemId(), Toast.LENGTH_LONG).show();
+
+                Intent intent;
+                switch (item.getItemId()){
+                    case 2131230831:
+                        intent = new Intent(MapsActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "OnClick: ShowListView", Toast.LENGTH_SHORT).show();
+                        break;
+//                        fragmentManager.beginTransaction()
+//                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+//                                .show(getSupportFragmentManager().findFragmentById(R.id.recyclerview))
+//                                .commit();
+
+//                    case 2131230832:
+//                        fragmentManager.beginTransaction()
+//                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+//                                .show(getSupportFragmentManager().findFragmentById(R.id.recyclerview))
+//                                .commit();
+                }
+                return false;
+            }
+        });
     }
 
 
@@ -117,30 +168,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         //added for navbar
-        mMainFrame = (FrameLayout) findViewById(R.id.main_frame);
-        mMainNav = (BottomNavigationView) findViewById(R.id.main_nav);
 
-        mMainNav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
 
+//        mMainNav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+//            @Override
+//            public void onNavigationItemReselected(@NonNull MenuItem item) {
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//
 //                switch (item.getItemId()){
 //                    case R.id.nav_map:
-//                        Fragment mapFrag = new Fragment(R.id.map);
 //                        fragmentManager.beginTransaction()
 //                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-//                                .show(R.id.map)
+//                                .show(getSupportFragmentManager().findFragmentById(R.id.map))
 //                                .commit();
 //                        //
 //                    case R.id.nav_list:
-//                        //
+//                        fragmentManager.beginTransaction()
+//                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+//                                .show(getSupportFragmentManager().findFragmentById(R.id.recyclerview))
+//                                .commit();
 //                }
-
-            }
-
-
-        });
+//
+//            }
+//
+//
+//        });
 
     }
 

@@ -18,7 +18,7 @@ public class DataItemAdapterListView extends ArrayAdapter<DataItemMeetings> {
     List<DataItemMeetings> mDataItems;
     LayoutInflater mInflater;
 
-    public DataItemAdapterListView(@NonNull Context context, @NonNull List<DataItemMeetings> objects) {
+    public DataItemAdapterListView(Context context,List<DataItemMeetings> objects) {
         super(context, R.layout.activity_maps, objects);
 
         mDataItems = objects;
@@ -27,7 +27,7 @@ public class DataItemAdapterListView extends ArrayAdapter<DataItemMeetings> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.activity_maps, parent, false);
