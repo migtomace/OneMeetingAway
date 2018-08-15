@@ -111,9 +111,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-//        new LongRunningTask().execute();
+        new LongRunningTask().execute();
 
-        setUpClusterer();
 
         //added for navbar
         mMainFrame = (FrameLayout) findViewById(R.id.main_frame);
@@ -155,34 +154,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    //your code
-                    // Add a marker in Sydney and move the camera
-                    LatLng seattle = new LatLng(47.608013, -122.335167);
-                    mMap.addMarker(new MarkerOptions().position(seattle).title("Marker in Seattle"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(seattle));
 
-                    List<DataItemMeetings> meet = mDataSource.getPins();
-                    Location location = new Location("target");
-                    LatLng camPos = mMap.getCameraPosition().target;
-                    location.setLatitude(camPos.latitude);
-                    location.setLongitude(camPos.longitude);
-                    Location target = new Location("target");
-                    for (int i = 0; i < meet.size(); i++) {
-                        String slat = meet.get(i).getLat();
-                        String slng = meet.get(i).getLng();
-                        double lat = Double.parseDouble(slat);
-                        double lng = Double.parseDouble(slng);
-                        target.setLatitude(lat);
-                        target.setLongitude(lng);
-//                        if (location.distanceTo(target) < 10000) {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(lng, lat))
-                                    .title(meet.get(i).getAddress()));
-//                        }
-
-                    }
-
-//                    mMap.setOnCameraMoveListener(MapsActivity.this);
-
+                    setUpClusterer();
 
                 }
             });

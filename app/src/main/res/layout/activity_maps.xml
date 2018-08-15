@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--changed from Fragment to RelativeLayout -->
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:id="@+id/main_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity" > <!-- Deleted /> here -->
+    android:layout_above="@id/main_nav"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/main_nav"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         map:itemBackground="@color/colorPrimary"
         map:itemIconTint="@color/nav_item_color"
         map:itemTextColor="@color/nav_item_color"
         map:menu="@menu/nav_items"
         android:layout_alignParentLeft="true"></android.support.design.widget.BottomNavigationView>
 
-    <FrameLayout
-        android:id="@+id/main_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/main_nav"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+    <fragment
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapsActivity" > <!-- Deleted /> here -->
+    </fragment>
 
     </FrameLayout>
-
-
-</fragment>
