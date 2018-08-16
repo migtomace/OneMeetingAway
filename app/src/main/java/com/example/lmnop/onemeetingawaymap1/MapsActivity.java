@@ -17,12 +17,14 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lmnop.onemeetingawaymap1.Adapters.ListMeetingsAdapter;
@@ -42,13 +44,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.io.IOException;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
-{
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.InfoWindowAdapter {
 
     //declare constants
     private static final String TAG = "MapsActivity";
@@ -339,16 +341,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         List<DataItemMeetings> meet = mDataSource.getPins();
         for (int i = 0; i < meet.size(); i++) {
+//            DataItemMeetings object = meet.get(i);
             String slat = meet.get(i).getLat();
             String slng = meet.get(i).getLng();
             double lat = Double.parseDouble(slat);
             double lng = Double.parseDouble(slng);
-            MyItem setItem = new MyItem(lng, lat, meet.get(i).getMeetingName(), meet.get(i).getDay());
+            String snippet = meet.get(i).getDay() + "~" + meet.get(i).getOc() + "~" + meet.get(i).getStartTime() + "~" + meet.get(i).getEndTime() + "~" + meet.get(i).getAddress() + "~" + meet.get(i).getCodes();
+            MyItem setItem = new MyItem(lng, lat, meet.get(i).getMeetingName(), snippet);
             mClusterManager.addItem(setItem);
 
         }
         mClusterManager.cluster();
 //        mClusterManager.setRenderer(new OwnIconRendered(this.getApplicationContext(), mMap, mClusterManager));
+        mMap.setInfoWindowAdapter(this);
+    }
+
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return null;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+//        MyItem item = new MyItem();
+
+//        Toast.makeText(getApplicationContext(), "Check" + marker.getSnippet(), Toast.LENGTH_LONG).show();
+//        String [] array = marker.getSnippet().split("~");
+//
+//        View view = getLayoutInflater().inflate(R.layout.info_window, null, true);
+//        TextView mn = view.findViewById(R.id.meetingName);
+//        TextView oc = view.findViewById(R.id.oc);
+//        TextView day = view.findViewById(R.id.day);
+//        TextView time = view.findViewById(R.id.time);
+//        TextView address = view.findViewById(R.id.address);
+//        TextView codes = view.findViewById(R.id.codes);
+//
+//        mn.setText(marker.getTitle());
+//        if (array[1] == "O"){
+//            oc.setText("Meeting Open");
+//        } else {
+//            oc.setText("Meeting Closed (Alcoholics Only)");
+//        }
+//        day.setText(array[0]);
+//        time.setText(array[2] + " - " + array[3]);
+//        address.setText(array[4]);
+//        codes.setText(array[5]);
+
+//        return view;
+        return null;
     }
 
 

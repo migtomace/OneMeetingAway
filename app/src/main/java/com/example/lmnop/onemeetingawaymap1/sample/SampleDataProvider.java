@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SampleDataProvider {
+public class  SampleDataProvider {
     public static List<DataItemMeetings> dataItemMeetingsList;
     public static Map<String, DataItemMeetings> dataItemMeetingsMap;
 

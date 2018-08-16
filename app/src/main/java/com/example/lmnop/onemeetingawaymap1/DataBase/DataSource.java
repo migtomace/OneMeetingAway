@@ -20,7 +20,10 @@ public class DataSource {
     SQLiteOpenHelper mDbHelper;
 
     private String[] cols = {MeetingsTable.COLUMN_LAT, MeetingsTable.COLUMN_LNG,
-            MeetingsTable.COLUMN_MEETINGNAME, MeetingsTable.COLUMN_DAY, MeetingsTable.COLUMN_LOCATION};
+            MeetingsTable.COLUMN_DAY, MeetingsTable.COLUMN_STARTTIME,
+            MeetingsTable.COLUMN_ENDTIME, MeetingsTable.COLUMN_OC,
+            MeetingsTable.COLUMN_MEETINGNAME, MeetingsTable.COLUMN_LOCATION,
+            MeetingsTable.COLUMN_ADDRESS, MeetingsTable.COLUMN_CODES};
 
 
     public DataSource(Context context) {
@@ -111,9 +114,14 @@ public class DataSource {
         DataItemMeetings m = new DataItemMeetings();
         m.setLat(cursor.getString(0));
         m.setLng(cursor.getString(1));
-        m.setMeetingName(cursor.getString(2));
-        m.setDay(cursor.getString(3));
-        m.setAddress(cursor.getString(4));
+        m.setDay(cursor.getString(2));
+        m.setStartTime(cursor.getString(3));
+        m.setEndTime(cursor.getString(4));
+        m.setOc(cursor.getString(5));
+        m.setMeetingName(cursor.getString(6));
+        m.setLocation(cursor.getString(7));
+        m.setAddress(cursor.getString(8));
+        m.setCodes(cursor.getString(9));
         return m;
     }
 

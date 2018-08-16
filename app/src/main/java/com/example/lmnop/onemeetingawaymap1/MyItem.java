@@ -2,7 +2,9 @@ package com.example.lmnop.onemeetingawaymap1;
 
 import android.graphics.drawable.Drawable;
 
+import com.example.lmnop.onemeetingawaymap1.model.DataItemMeetings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterItem;
 
 public class MyItem implements ClusterItem {
